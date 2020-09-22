@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 export default function App() {
+
+  const [questionNum, setQuestionNum] = useState(0);
+
 	const questions = [
 		{
 			questionText: 'What is the capital of France?',
@@ -52,13 +55,12 @@ export default function App() {
 						<div className='question-count'>
 							<span>Question 1</span>/{questions.length}
 						</div>
-						<div className='question-text'>This is where the question text should go</div>
+               <div className='question-text'>{questions[questionNum].questionText}</div>
 					</div>
 					<div className='answer-section'>
-						<button>Answer 1</button>
-						<button>Answer 2</button>
-						<button>Answer 3</button>
-						<button>Answer 4</button>
+            {questions[questionNum].answerOptions.map((answer, key) => 
+              <button key={key} id={key}>{answer.answerText}</button>
+            )}
 					</div>
 				</>
 			)}

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 export default function App() {
 
-  const [questionNum, setQuestionNum] = useState(0);
+  let [questionNum, setQuestionNum] = useState(0);
+  
 
 	const questions = [
 		{
@@ -41,7 +42,13 @@ export default function App() {
 				{ answerText: '7', isCorrect: true },
 			],
 		},
-	];
+  ];
+  
+  const next = (event) => {
+
+    console.log(event.target.id)
+    setQuestionNum(questionNum += 1);
+  }
 
 	return (
 		<div className='app'>
@@ -53,13 +60,13 @@ export default function App() {
 				<>
 					<div className='question-section'>
 						<div className='question-count'>
-							<span>Question 1</span>/{questions.length}
+							<span>{questionNum + 1}</span>/{questions.length}
 						</div>
                <div className='question-text'>{questions[questionNum].questionText}</div>
 					</div>
 					<div className='answer-section'>
             {questions[questionNum].answerOptions.map((answer, key) => 
-              <button key={key} id={key}>{answer.answerText}</button>
+              <button onClick={next} key={key} id={key}>{answer.answerText}</button>            
             )}
 					</div>
 				</>

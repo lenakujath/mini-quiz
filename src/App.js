@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 export default function App() {
 
   let [questionNum, setQuestionNum] = useState(0);
+  let [score, setScore] = useState(0);
+  let [finish, setFinish] = useState(false);
   
 
 	const questions = [
@@ -46,16 +48,18 @@ export default function App() {
   
   const next = (event) => {
 
-    console.log(event.target.id)
-    setQuestionNum(questionNum += 1);
+    let chosenAnswerId = event.target.id;
+    let chosenAnswer = questions[questionNum].answerOptions[chosenAnswerId].isCorrect;
+    chosenAnswer ? setScore(score += 1) : setScore(score);
+    questionNum < 3 ? setQuestionNum(questionNum += 1) : setFinish(true);
   }
 
 	return (
 		<div className='app'>
 			{/* HINT: replace "false" with logic to display the 
       score when the user has answered all the questions */}
-			{false ? (
-				<div className='score-section'>You scored 1 out of {questions.length}</div>
+			{finish ? (
+				<div className='score-section'>You scored {score} out of {questions.length}</div>
 			) : (
 				<>
 					<div className='question-section'>
